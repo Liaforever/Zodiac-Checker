@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>✨ Zodiac Checker ✨</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #fce2f1, #e4f0ff);
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      color: #444;
+      padding: 40px;
+      overflow: hidden;
+    }
+    h1 {
+      font-size: 2.5em;
+      color: #ff82a9;
+      margin-bottom: 20px;
+    }
+    .options {
+      margin: 20px auto;
+      text-align: left;
+      display: inline-block;
+      background: #fff0f6;
+      padding: 20px 30px;
+      border-radius: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 2;
+    }
+    label {
+      display: block;
+      margin: 10px 0;
+      font-size: 1.1em;
+      color: #555;
+    }
+    input[type="radio"] {
+      margin-right: 10px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px 25px;
+      font-size: 1em;
+      border: none;
+      border-radius: 15px;
+      background: #a1c4fd;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #89bbfc;
+    }
+    .floating {
+      position: absolute;
+      font-size: 2em;
+      animation: float 10s infinite;
+      opacity: 0.6;
+    }
+    @keyframes float {
+      0% { transform: translateY(100vh) scale(0.8); opacity: 0; }
+      30% { opacity: 0.6; }
+      100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <h1>🌸 Choose Your Birthdate Range 🌸</h1>
+
+  <form id="zodiacForm" class="options">
+    <label><input type="radio" name="zodiac" value="aries"> ♈ March 21 - April 19</label>
+    <label><input type="radio" name="zodiac" value="taurus"> ♉ April 20 - May 20</label>
+    <label><input type="radio" name="zodiac" value="gemini"> ♊ May 21 - June 20</label>
+    <label><input type="radio" name="zodiac" value="cancer"> ♋ June 21 - July 22</label>
+    <label><input type="radio" name="zodiac" value="leo"> ♌ July 23 - August 22</label>
+    <label><input type="radio" name="zodiac" value="virgo"> ♍ August 23 - September 22</label>
+    <label><input type="radio" name="zodiac" value="libra"> ♎ September 23 - October 22</label>
+    <label><input type="radio" name="zodiac" value="scorpio"> ♏ October 23 - November 21</label>
+    <label><input type="radio" name="zodiac" value="sagittarius"> ♐ November 22 - December 21</label>
+    <label><input type="radio" name="zodiac" value="capricorn"> ♑ December 22 - January 19</label>
+    <label><input type="radio" name="zodiac" value="aquarius"> ♒ January 20 - February 18</label>
+    <label><input type="radio" name="zodiac" value="pisces"> ♓ February 19 - March 20</label>
+
+    <button type="button" onclick="showZodiac()">✨ Reveal My Sign ✨</button>
+  </form>
+
+  <div id="decor"></div>
+
+  <script>
+    const zodiacs = {
+      aries: {sign: "Aries ♈", element: "Fire 🔥", comp: "Leo ♌ & Sagittarius ♐", trait: "Confident ✨"},
+      taurus: {sign: "Taurus ♉", element: "Earth 🌱", comp: "Virgo ♍ & Capricorn ♑", trait: "Reliable 🌸"},
+      gemini: {sign: "Gemini ♊", element: "Air 💨", comp: "Libra ♎ & Aquarius ♒", trait: "Adaptable 🌈"},
+      cancer: {sign: "Cancer ♋", element: "Water 🌊", comp: "Scorpio ♏ & Pisces ♓", trait: "Caring 💕"},
+      leo: {sign: "Leo ♌", element: "Fire 🔥", comp: "Aries ♈ & Sagittarius ♐", trait: "Charismatic 🌟"},
+      virgo: {sign: "Virgo ♍", element: "Earth 🌱", comp: "Taurus ♉ & Capricorn ♑", trait: "Organized 📚"},
+      libra: {sign: "Libra ♎", element: "Air 💨", comp: "Gemini ♊ & Aquarius ♒", trait: "Charming 💫"},
+      scorpio: {sign: "Scorpio ♏", element: "Water 🌊", comp: "Cancer ♋ & Pisces ♓", trait: "Passionate 🔥"},
+      sagittarius: {sign: "Sagittarius ♐", element: "Fire 🔥", comp: "Aries ♈ & Leo ♌", trait: "Adventurous 🌍"},
+      capricorn: {sign: "Capricorn ♑", element: "Earth 🌱", comp: "Virgo ♍ & Taurus ♉", trait: "Ambitious 🎯"},
+      aquarius: {sign: "Aquarius ♒", element: "Air 💨", comp: "Libra ♎ & Gemini ♊", trait: "Innovative 💡"},
+      pisces: {sign: "Pisces ♓", element: "Water 🌊", comp: "Cancer ♋ & Scorpio ♏", trait: "Empathetic 🌸"}
+    };
+
+    function showZodiac() {
+      let choice = document.querySelector('input[name="zodiac"]:checked');
+      if (!choice) return;
+      let z = zodiacs[choice.value];
+      let popup = window.open("", "Zodiac Result", "width=420,height=450");
+      popup.document.write(`
+        <html>
+          <head>
+            <title>Your Zodiac ✨</title>
+            <style>
+              body {
+                background: linear-gradient(135deg, #ffe4ec, #e7f3ff);
+                font-family: 'Poppins', sans-serif;
+                text-align: center;
+                padding: 30px;
+                color: #444;
+                overflow: hidden;
+              }
+              h2 { color: #ff82a9; font-size: 2em; }
+              p { font-size: 1.2em; margin: 10px 0; }
+              .floating { position: absolute; font-size: 2em; animation: float 10s infinite; opacity: 0.6; }
+              @keyframes float {
+                0% { transform: translateY(100vh) scale(0.8); opacity: 0; }
+                30% { opacity: 0.6; }
+                100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+              }
+            </style>
+          </head>
+          <body>
+            <h2>🌟 You are a! 🌟</h2>
+            <p style="font-size:1.8em; font-weight:bold;">${z.sign}</p>
+            <p>✨ Element: ${z.element}</p>
+            <p>💖 Compatible with: ${z.comp}</p>
+            <p>🌸 Best trait: ${z.trait}</p>
+            <script>
+              const symbols = ['✨','💖','🌸','⭐'];
+              for(let i=0;i<12;i++){
+                let el = document.createElement('div');
+                el.className = 'floating';
+                el.style.left = Math.random()*100+'%';
+                el.style.animationDuration = (8+Math.random()*5)+'s';
+                el.textContent = symbols[Math.floor(Math.random()*symbols.length)];
+                document.body.appendChild(el);
+              }
+            <\/script>
+          </body>
+        </html>
+      `);
+    }
+
+    const symbols = ['✨','💖','🌸','⭐'];
+    for(let i=0;i<15;i++){
+      let el = document.createElement('div');
+      el.className = 'floating';
+      el.style.left = Math.random()*100+'%';
+      el.style.animationDuration = (8+Math.random()*5)+'s';
+      el.textContent = symbols[Math.floor(Math.random()*symbols.length)];
+      document.getElementById('decor').appendChild(el);
+    }
+  </script>
+</body>
+</html>
